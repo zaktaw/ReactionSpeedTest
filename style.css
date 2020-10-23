@@ -19,6 +19,7 @@ p {
 }
 
 #divGameWindow {
+    position: relative;
     height: 500px;
     width: 500px;
     margin-left: 2rem;
@@ -30,4 +31,5 @@ p {
     height: 100px;
     width: 100px;
     background-color: blue;
+    position: absolute;
 }
