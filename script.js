@@ -65,6 +65,13 @@ $(function() {
         let totalTime = Date.now() - startTime;
         $(`#rowResult${testCounter}`).html(totalTime);
     });
+
+    //Press 'make smaller' button
+    $('#btnMakeSmaller').on("click", () => {
+        let gameWindowWidth = $('#divGameWindow').css("width").split("px")[0];
+        gameWindowWidth -= 3;
+        $('#divGameWindow').css({width: gameWindowWidth+'px'});
+    });
 });
 
 //Moves game object to a postion based on which test the user is currently on
