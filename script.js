@@ -22,7 +22,7 @@ const gameObjectPositionOffset = [
 ];
 
 let testCounter = 0; // which test number the user is currently on
-const numberOfPositions = 10; // how many tests will be generated
+const numberOfTests = 10; // how many tests will be generated
 const waitMilliseconds = 3000; // how many milleseconds before showing game object in tests
 
 
@@ -31,6 +31,7 @@ $(function() {
     $('#divGameObject').hide(); //hide game object
     $('#btnPrevious').hide(); // hide previous button
     makeGameObjectPositions();
+    makeTable();
 
     //Press start button: show game object and move it
     $('#btnStart').on("click", function() {
@@ -71,7 +72,7 @@ function makeGameObjectPositions() {
     const gameObjectWidth = getComputedStyle(gameObject).width.split("px")[0];
     const gameObjectHeight = getComputedStyle(gameObject).height.split("px")[0];
 
-    for (i=0; i<numberOfPositions; i++) {
+    for (i=0; i<numberOfTests; i++) {
         let gameObjectPosition = {
             left: gameWindowWidth-gameObjectWidth-gameObjectPositionOffset[i].width,
             top: gameWindowHeight-gameObjectHeight-gameObjectPositionOffset[i].height
@@ -88,4 +89,15 @@ function hideShowButtons() {
     
     if (testCounter == 0) $('#btnPrevious').hide();
     else $('#btnPrevious').show();
+}
+
+//Generate a table with as many rows as number of test results
+function makeTable() {
+    let tableHTML = '<tr><th>Test</th><th>Result (milliseconds)</th></tr>';
+
+    for (i=0; i<numberOfTests;i++) {
+        tableHTML += `<tr><td>${i+1}</td><td></td></tr>`;
+    }
+
+    $('#tableTestResults').html(tableHTML);
 }
