@@ -1,10 +1,5 @@
 const gameObjectPositionsPercent = [
-    {left: 90, top: 90},
-    {left: 25, top: 25},
-    {left: 50, top: 50},
-    {left: 75, top: 75},
-    {left: 0, top: 90},
-    {left: 90, top: 0}
+  
 ];
 
 let testCounter = 0; // which test number the user is currently on
@@ -19,6 +14,7 @@ $(function() {
     $('#btnPrevious').hide(); // hide previous button
     makeTable();
     setGameWindowSize();
+    populateArray()
 
     //Press start button: show game object and move it
     $('#divStart').on("click", function() {
@@ -94,4 +90,16 @@ function setGameWindowSize() {
     let gameWindowHeight = urlVariables[1].split("=")[1] + 'px';
 
     $('#divGameWindow').css({width: gameWindowWidth, height: gameWindowHeight});
+}
+
+function populateArray() {
+    for (i=0;i<10;i++) {
+        let position = {left: genRandNum(0,90), top: genRandNum(0,94)};
+        gameObjectPositionsPercent.push(position);
+    }
+}
+
+//Generate a random number between lower bound and upper bound (including lower and upper bound)
+function genRandNum(lowerBound, upperBound) {
+    return Math.floor(Math.random() * (upperBound - lowerBound + 1)) + lowerBound;
 }
