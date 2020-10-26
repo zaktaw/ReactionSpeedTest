@@ -13,10 +13,8 @@ const gameObjectPositionsPercent = [
     {left: 60, top: 50},
 ];
 
-
-
 let testCounter = 0; // which test number the user is currently on
-const numberOfTests = 10; // how many tests will be generated
+const numberOfTests = 3; // how many tests will be generated
 const waitMilliseconds = 3000; // how many milleseconds before showing game object in tests
 let startTime; // current system time before clicking box
 
@@ -27,7 +25,7 @@ $(function() {
     makeTable();
 
     //Press start button: show game object and move it
-    $('#btnStart').on("click", function() {
+    $('#divStart').on("click", function() {
         moveGameObject();
         setTimeout(() => {
             startTime = Date.now();
@@ -56,6 +54,11 @@ $(function() {
         $('#divGameObject').hide();
         let totalTime = Date.now() - startTime;
         $(`#rowResult${testCounter}`).html(totalTime);
+        if (testCounter < gameObjectPositionsPercent.length-1) {
+            testCounter++;
+            $('#pTestCounter').text("Test " + (testCounter + 1) + " / " + gameObjectPositionsPercent.length);
+        }
+        hideShowButtons();
     });
 
     //Press 'make smaller width' button
@@ -98,9 +101,9 @@ function moveGameObject() {
 
 // hides next button when user is at last test and hides previous button when user is at first test
 function hideShowButtons() {
-    if (testCounter == gameObjectPositions.length-1) $('#btnNext').hide();
+    if (testCounter == gameObjectPositionsPercent.length-1) $('#btnNext').hide();
     else $('#btnNext').show();
-    
+
     if (testCounter == 0) $('#btnPrevious').hide();
     else $('#btnPrevious').show();
 }
@@ -122,3 +125,5 @@ function startTest() {
     window.location = 'test.html?width=' + gameWindowWidth + '&height=' + gameWindowHeight;
 
 }
+
+
