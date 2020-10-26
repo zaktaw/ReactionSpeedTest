@@ -49,7 +49,11 @@ $(function() {
         $('#divGameObject').hide();
         let totalTime = Date.now() - startTime;
         $(`#rowResult${testCounter}`).html(totalTime);
-        $('#pTestCounter').text("Test " + (testCounter + 1) + " / " + gameObjectPositionsPercent.length);
+        if (testCounter < gameObjectPositionsPercent.length-1) {
+            testCounter++;
+            $('#pTestCounter').text("Test " + (testCounter + 1) + " / " + gameObjectPositionsPercent.length);
+        }
+        hideShowButtons();
     });
 
 
