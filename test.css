@@ -1,0 +1,35 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: lightgray;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h1 {
+    margin-left: 2rem;
+}
+
+button {
+    margin-top: 1rem;
+    margin-left: 2rem;
+}
+
+p {
+    margin-left: 2rem;
+}
+
+#divGameWindow {
+    position: relative;
+    height: 400px;
+    width: 280px;
+    margin-left: 2rem;
+    border: 2px solid black;
+    background-color: white;
+}
+
+#divGameObject {
+    height: 40px;
+    width: 40px;
+    background-color: black;
+    position: absolute;
+}
