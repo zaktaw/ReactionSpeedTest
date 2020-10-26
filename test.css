@@ -28,8 +28,8 @@ p {
 }
 
 #divGameObject {
-    height: 40px;
-    width: 40px;
+    height: 10%;
+    width: 10%;
     background-color: black;
     position: absolute;
 }

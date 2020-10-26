@@ -9,8 +9,8 @@ const gameObjectPositions = []; // will be filled on page load
  * maximum height: gameWindow.height (500) - gameObject.height (40) = 360  
  */
 const gameObjectPositionOffset = [
-    {width: 7, height: 229},
-    {width: 45, height: 360},
+    {width: 95, height: 95},
+    {width: 0, height: 0},
     {width: 240, height: 221},
     {width: 200, height: 295},
     {width: 55, height: 216},
@@ -19,6 +19,15 @@ const gameObjectPositionOffset = [
     {width: 84, height: 301},
     {width: 100, height: 304},
     {width: 149, height: 27},
+];
+
+const gameObjectPositionsPercent = [
+    {left: 90, top: 90},
+    {left: 25, top: 25},
+    {left: 50, top: 50},
+    {left: 75, top: 75},
+    {left: 0, top: 90},
+    {left: 90, top: 0}
 ];
 
 let testCounter = 0; // which test number the user is currently on
@@ -33,6 +42,7 @@ $(function() {
     $('#btnPrevious').hide(); // hide previous button
     makeGameObjectPositions();
     makeTable();
+    setGameWindowSize();
 
     //Press start button: show game object and move it
     $('#btnStart').on("click", function() {
@@ -66,18 +76,13 @@ $(function() {
         $(`#rowResult${testCounter}`).html(totalTime);
     });
 
-    //Press 'make smaller' button
-    $('#btnMakeSmaller').on("click", () => {
-        let gameWindowWidth = $('#divGameWindow').css("width").split("px")[0];
-        gameWindowWidth -= 3;
-        $('#divGameWindow').css({width: gameWindowWidth+'px'});
-    });
+
 });
 
 //Moves game object to a postion based on which test the user is currently on
 function moveGameObject() {
-    $("#divGameObject").animate({left: gameObjectPositions[testCounter].left + 'px', top: gameObjectPositions[testCounter].top + 'px'});
-
+    $("#divGameObject").animate({left: gameObjectPositionsPercent[testCounter].left + '%', 
+    top: gameObjectPositionsPercent[testCounter].top + '%'});
 }
 
 // fills an array of game object positions based on the game window size, game object size and game object positions offsets
@@ -118,4 +123,12 @@ function makeTable() {
     }
 
     $('#tableTestResults').html(tableHTML);
+}
+
+function setGameWindowSize() {
+    //$("a").attr("href", '?fruit=' + 'apple');
+    let gameWindowWidth = $("a").attr("href", )
+    let gameWindowHeight;
+
+    $('#divGameWindow').css({width: gameWindowWidth, height: gameWindowHeight});
 }
