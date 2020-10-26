@@ -22,7 +22,6 @@ $(function() {
 
     //Press start button: show game object and move it
     $('#divStart').on("click", function() {
-        testCounter++;
         moveGameObject();
         setTimeout(() => {
             startTime = Date.now();
@@ -35,7 +34,6 @@ $(function() {
         testCounter++;
         $('#pTestCounter').text("Test " + (testCounter + 1) + " / " + gameObjectPositionsPercent.length);
         hideShowButtons();
-        $('#divGameObject').hide();
     });
 
     //Press previous button: updates test counter
@@ -51,6 +49,7 @@ $(function() {
         $('#divGameObject').hide();
         let totalTime = Date.now() - startTime;
         $(`#rowResult${testCounter}`).html(totalTime);
+        $('#pTestCounter').text("Test " + (testCounter + 1) + " / " + gameObjectPositionsPercent.length);
     });
 
 
