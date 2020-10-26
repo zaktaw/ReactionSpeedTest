@@ -24,6 +24,7 @@ const gameObjectPositionOffset = [
 let testCounter = 0; // which test number the user is currently on
 const numberOfTests = 10; // how many tests will be generated
 const waitMilliseconds = 3000; // how many milleseconds before showing game object in tests
+let startTime; // current system time before clicking box
 
 
 $(function() {
@@ -36,7 +37,10 @@ $(function() {
     //Press start button: show game object and move it
     $('#btnStart').on("click", function() {
         moveGameObject();
-        setTimeout(() => $('#divGameObject').show(), waitMilliseconds);
+        setTimeout(() => {
+            startTime = Date.now();
+            $('#divGameObject').show();
+        }, waitMilliseconds);
     });
 
     //Press next button: updates test counter
@@ -53,6 +57,12 @@ $(function() {
         $('#pTestCounter').text("Test " + (testCounter + 1) + " / " + gameObjectPositions.length);
         hideShowButtons();
         $('#divGameObject').hide();
+    });
+
+    //Press game object
+    $('#divGameObject').on("click", () => {
+        let totalTime = Date.now() - startTime;
+        $(`#rowResult${testCounter}`).html(totalTime);
     });
 });
 
@@ -96,7 +106,7 @@ function makeTable() {
     let tableHTML = '<tr><th>Test</th><th>Result (milliseconds)</th></tr>';
 
     for (i=0; i<numberOfTests;i++) {
-        tableHTML += `<tr><td>${i+1}</td><td></td></tr>`;
+        tableHTML += `<tr><td id='rowTest${i}'>${i+1}</td><td id='rowResult${i}'></td></tr>`;
     }
 
     $('#tableTestResults').html(tableHTML);
