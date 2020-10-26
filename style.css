@@ -21,15 +21,15 @@ p {
 #divGameWindow {
     position: relative;
     height: 500px;
-    width: 500px;
+    width: 280px;
     margin-left: 2rem;
     border: 2px solid black;
     background-color: white;
 }
 
 #divGameObject {
-    height: 100px;
-    width: 100px;
-    background-color: blue;
+    height: 40px;
+    width: 40px;
+    background-color: black;
     position: absolute;
 }

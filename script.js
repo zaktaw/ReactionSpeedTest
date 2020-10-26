@@ -5,19 +5,19 @@ const gameObjectPositions = []; // will be filled on page load
  * 
  * minimum width: 0
  * minimum height: 0
- * maximum width: gameWindow.width (500) - gameObject.width (100) = 400
- * maximum height: gameWindow.height (500) - gameObject.height (100) = 400  
+ * maximum width: gameWindow.width (280) - gameObject.width (40) = 240
+ * maximum height: gameWindow.height (500) - gameObject.height (40) = 360  
  */
 const gameObjectPositionOffset = [
     {width: 7, height: 229},
-    {width: 45, height: 366},
-    {width: 390, height: 221},
-    {width: 279, height: 295},
+    {width: 45, height: 360},
+    {width: 240, height: 221},
+    {width: 200, height: 295},
     {width: 55, height: 216},
-    {width: 245, height: 346},
-    {width: 293, height: 160},
+    {width: 200, height: 346},
+    {width: 75, height: 160},
     {width: 84, height: 301},
-    {width: 321, height: 304},
+    {width: 100, height: 304},
     {width: 149, height: 27},
 ];
 
