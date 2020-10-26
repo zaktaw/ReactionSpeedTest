@@ -33,3 +33,12 @@ p {
     background-color: black;
     position: absolute;
 }
+
+#divStart {
+    background-color: red;
+    width: 25%;
+    height: 10%;
+    left: 30%;
+    top: 101%;
+    position: absolute;
+}

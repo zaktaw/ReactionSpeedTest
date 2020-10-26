@@ -1,26 +1,3 @@
-const gameObjectPositions = []; // will be filled on page load
-
-/**
- * How many pixels the game object positions should be offset by compared to gameWinow size minus gameObject size
- * 
- * minimum width: 0
- * minimum height: 0
- * maximum width: gameWindow.width (280) - gameObject.width (40) = 240
- * maximum height: gameWindow.height (500) - gameObject.height (40) = 360  
- */
-const gameObjectPositionOffset = [
-    {width: 95, height: 95},
-    {width: 0, height: 0},
-    {width: 240, height: 221},
-    {width: 200, height: 295},
-    {width: 55, height: 216},
-    {width: 200, height: 346},
-    {width: 75, height: 160},
-    {width: 84, height: 301},
-    {width: 100, height: 304},
-    {width: 149, height: 27},
-];
-
 const gameObjectPositionsPercent = [
     {left: 90, top: 90},
     {left: 25, top: 25},
@@ -40,12 +17,12 @@ $(function() {
     //ON PAGE LOAD:
     $('#divGameObject').hide(); //hide game object
     $('#btnPrevious').hide(); // hide previous button
-    makeGameObjectPositions();
     makeTable();
     setGameWindowSize();
 
     //Press start button: show game object and move it
-    $('#btnStart').on("click", function() {
+    $('#divStart').on("click", function() {
+        testCounter++;
         moveGameObject();
         setTimeout(() => {
             startTime = Date.now();
@@ -56,7 +33,7 @@ $(function() {
     //Press next button: updates test counter
     $('#btnNext').on("click", function() {
         testCounter++;
-        $('#pTestCounter').text("Test " + (testCounter + 1) + " / " + gameObjectPositions.length);
+        $('#pTestCounter').text("Test " + (testCounter + 1) + " / " + gameObjectPositionsPercent.length);
         hideShowButtons();
         $('#divGameObject').hide();
     });
@@ -64,7 +41,7 @@ $(function() {
     //Press previous button: updates test counter
     $('#btnPrevious').on("click", function() {
         testCounter--;
-        $('#pTestCounter').text("Test " + (testCounter + 1) + " / " + gameObjectPositions.length);
+        $('#pTestCounter').text("Test " + (testCounter + 1) + " / " + gameObjectPositionsPercent.length);
         hideShowButtons();
         $('#divGameObject').hide();
     });
@@ -85,29 +62,9 @@ function moveGameObject() {
     top: gameObjectPositionsPercent[testCounter].top + '%'});
 }
 
-// fills an array of game object positions based on the game window size, game object size and game object positions offsets
-function makeGameObjectPositions() {
-    const gameWindow = document.querySelector('#divGameWindow');
-    const gameWindowWidth = getComputedStyle(gameWindow).width.split("px")[0];
-    const gameWindowHeight = getComputedStyle(gameWindow).height.split("px")[0];
-
-    const gameObject = document.querySelector('#divGameObject');
-    const gameObjectWidth = getComputedStyle(gameObject).width.split("px")[0];
-    const gameObjectHeight = getComputedStyle(gameObject).height.split("px")[0];
-
-    for (i=0; i<numberOfTests; i++) {
-        let gameObjectPosition = {
-            left: gameWindowWidth-gameObjectWidth-gameObjectPositionOffset[i].width,
-            top: gameWindowHeight-gameObjectHeight-gameObjectPositionOffset[i].height
-        };
-
-        gameObjectPositions.push(gameObjectPosition);
-    }
-}
-
 // hides next button when user is at last test and hides previous button when user is at first test
 function hideShowButtons() {
-    if (testCounter == gameObjectPositions.length-1) $('#btnNext').hide();
+    if (testCounter == gameObjectPositionsPercent.length-1) $('#btnNext').hide();
     else $('#btnNext').show();
     
     if (testCounter == 0) $('#btnPrevious').hide();
@@ -125,10 +82,13 @@ function makeTable() {
     $('#tableTestResults').html(tableHTML);
 }
 
+//Adjusts the game window size based on what the user put in in index.html
 function setGameWindowSize() {
-    //$("a").attr("href", '?fruit=' + 'apple');
-    let gameWindowWidth = $("a").attr("href", )
-    let gameWindowHeight;
+    let urlVariables = window.location.search.substring(1).split("&");
+    console.log(urlVariables);
+
+    let gameWindowWidth = urlVariables[0].split("=")[1] + 'px';
+    let gameWindowHeight = urlVariables[1].split("=")[1] + 'px';
 
     $('#divGameWindow').css({width: gameWindowWidth, height: gameWindowHeight});
 }
