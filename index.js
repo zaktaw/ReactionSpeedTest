@@ -1,8 +1,29 @@
+/**
+ * How many pixels the game object positions should be offset by compared to gameWinow size minus gameObject size
+ *
+ * minimum width: 0
+ * minimum height: 0
+ * maximum width: gameWindow.width (280) - gameObject.width (40) = 240
+ * maximum height: gameWindow.height (500) - gameObject.height (40) = 360
+ */
+
+const gameObjectPositionsPercent = [
+    {left: 30, top: 10},
+    {left: 80, top: 70},
+    {left: 60, top: 50},
+];
+
+
+
+let testCounter = 0; // which test number the user is currently on
+const numberOfTests = 10; // how many tests will be generated
+const waitMilliseconds = 3000; // how many milleseconds before showing game object in tests
+let startTime; // current system time before clicking box
+
 $(function() {
     //ON PAGE LOAD:
     $('#divGameObject').hide(); //hide game object
-    $('#btnPrevious').hide(); // hide previous button
-    makeGameObjectPositions();
+    $('#btnPrevious').hide(); // hide previous button;
     makeTable();
 
     //Press start button: show game object and move it
@@ -37,39 +58,43 @@ $(function() {
         $(`#rowResult${testCounter}`).html(totalTime);
     });
 
-    //Press 'make smaller' button
-    $('#btnMakeSmaller').on("click", () => {
+    //Press 'make smaller width' button
+    $('#btnMakeSmallerWidth').on("click", () => {
         let gameWindowWidth = $('#divGameWindow').css("width").split("px")[0];
         gameWindowWidth -= 3;
         $('#divGameWindow').css({width: gameWindowWidth+'px'});
+    });
+
+    //Press 'make bigger width' button
+    $('#btnMakeBiggerWidth').on("click", () => {
+        let gameWindowWidth = $('#divGameWindow').css("width").split("px")[0];
+        gameWindowWidthParsed = parseInt(gameWindowWidth);          //Need to parse due to bug where JS adds strings together. 280 + 3 = 2803..
+        gameWindowWidth = gameWindowWidthParsed + 3;
+        $('#divGameWindow').css({width: gameWindowWidth+'px'});
+    });
+
+    //Press 'make smaller height' button
+    $('#btnMakeSmallerHeight').on("click", () => {
+        let gameWindowHeight = $('#divGameWindow').css("height").split("px")[0];
+        gameWindowHeight -= 3;
+        $('#divGameWindow').css({height: gameWindowHeight+'px'});
+    });
+
+    //Press 'make bigger height' button
+    $('#btnMakeBiggerHeight').on("click", () => {
+        let gameWindowHeight = $('#divGameWindow').css("height").split("px")[0];
+        gameWindowHeightParsed = parseInt(gameWindowHeight);    //Need to parse due to bug where JS adds strings together. 280 + 3 = 2803..
+        gameWindowHeight = gameWindowHeightParsed  + 3;
+        $('#divGameWindow').css({height: gameWindowHeight+'px'});
     });
 });
 
 //Moves game object to a postion based on which test the user is currently on
 function moveGameObject() {
-    $("#divGameObject").animate({left: gameObjectPositions[testCounter].left + 'px', top: gameObjectPositions[testCounter].top + 'px'});
-
+    $("#divGameObject").animate({left: gameObjectPositionsPercent[testCounter].left + '%',
+        top: gameObjectPositionsPercent[testCounter].top + '%'});
 }
 
-// fills an array of game object positions based on the game window size, game object size and game object positions offsets
-function makeGameObjectPositions() {
-    const gameWindow = document.querySelector('#divGameWindow');
-    const gameWindowWidth = getComputedStyle(gameWindow).width.split("px")[0];
-    const gameWindowHeight = getComputedStyle(gameWindow).height.split("px")[0];
-
-    const gameObject = document.querySelector('#divGameObject');
-    const gameObjectWidth = getComputedStyle(gameObject).width.split("px")[0];
-    const gameObjectHeight = getComputedStyle(gameObject).height.split("px")[0];
-
-    for (i=0; i<numberOfTests; i++) {
-        let gameObjectPosition = {
-            left: gameWindowWidth-gameObjectWidth-gameObjectPositionOffset[i].width,
-            top: gameWindowHeight-gameObjectHeight-gameObjectPositionOffset[i].height
-        };
-
-        gameObjectPositions.push(gameObjectPosition);
-    }
-}
 
 // hides next button when user is at last test and hides previous button when user is at first test
 function hideShowButtons() {
@@ -89,4 +114,11 @@ function makeTable() {
     }
 
     $('#tableTestResults').html(tableHTML);
+}
+
+function startTest() {
+    let gameWindowWidth = $('#divGameWindow').css("width").split("px")[0];
+    let gameWindowHeight = $('#divGameWindow').css("height").split("px")[0];
+    window.location = 'test.html?width=' + gameWindowWidth + '&height=' + gameWindowHeight;
+
 }
