@@ -61,6 +61,7 @@ $(function() {
 
     //Press game object
     $('#divGameObject').on("click", () => {
+        $('#divGameObject').hide();
         let totalTime = Date.now() - startTime;
         $(`#rowResult${testCounter}`).html(totalTime);
     });
