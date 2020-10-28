@@ -39,6 +39,7 @@ $(function() {
         testCounter++;
         $('#pTestCounter').text("Test " + (testCounter + 1) + " / " + gameObjectPositionsPercent.length);
         hideShowButtons();
+        $('#divGameObject').hide();
     });
 
     //Press previous button: updates test counter
