@@ -1,5 +1,14 @@
 const gameObjectPositionsPercent = [
-  
+    {left: 25, top: 89},
+    {left: 33, top: 10},
+    {left: 44, top: 73},
+    {left: 54, top: 36},
+    {left: 62, top: 11},
+    {left: 1, top: 17},
+    {left: 81, top: 73},
+    {left: 83, top: 0},
+    {left: 75, top: 15},
+    {left: 55, top: 83}
 ];
 
 let testCounter = 0; // which test number the user is currently on
@@ -14,7 +23,7 @@ $(function() {
     $('#btnPrevious').hide(); // hide previous button
     makeTable();
     setGameWindowSize();
-    populateArray()
+    //populateArray()
 
     //Press start button: show game object and move it
     $('#divStart').on("click", function() {
