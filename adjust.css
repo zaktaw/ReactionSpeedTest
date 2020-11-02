@@ -49,25 +49,3 @@ p {
     width: 100px;
 }
 
-#btnMakeSmallerWidth {
-    position: absolute;
-    top: -12%;
-}
-
-#btnMakeBiggerWidth {
-    position: absolute;
-    top: -12%;
-    left: 30%;
-}
-
-#btnMakeSmallerHeight {
-    position: absolute;
-    top: 0%;
-    left: 95%;
-}
-
-#btnMakeBiggerHeight {
-    position: absolute;
-    top: 10%;
-    left: 95%;
-}
