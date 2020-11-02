@@ -11,6 +11,19 @@ const gameObjectPositionsPercent = [
     {left: 55, top: 83}
 ];
 
+const gameObjectSizes = [
+    {height: 6, width: 10},
+    {height: 6, width: 10},
+    {height: 6, width: 10},
+    {height: 12, width: 20},
+    {height: 12, width: 20},
+    {height: 15, width: 23},
+    {height: 15, width: 23},
+    {height: 9, width: 18},
+    {height: 9, width: 18},
+    {height: 9, width: 18}
+];
+
 let testCounter = 0; // which test number the user is currently on
 const numberOfTests = 10; // how many tests will be generated
 const waitMilliseconds = 3000; // how many milleseconds before showing game object in tests
@@ -61,12 +74,11 @@ $(function() {
         }
         hideShowButtons();
     });
-
-
 });
 
 //Moves game object to a postion based on which test the user is currently on
 function moveGameObject() {
+    $('#divGameObject').css({height: gameObjectSizes[testCounter].height + '%', width: gameObjectSizes[testCounter].width +'%'});
     $("#divGameObject").animate({left: gameObjectPositionsPercent[testCounter].left + '%', 
     top: gameObjectPositionsPercent[testCounter].top + '%'});
 }

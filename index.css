@@ -7,6 +7,7 @@ body {
 
 h1 {
     margin-left: 2rem;
+    margin-bottom: 3rem;
 }
 
 button {
@@ -34,7 +35,39 @@ p {
     position: absolute;
 }
 
+#divStart {
+    background-color: red;
+    width: 25%;
+    height: 10%;
+    left: 30%;
+    top: 101%;
+    position: absolute;
+}
+
 #nextPage {
     height: 30px;
     width: 100px;
+}
+
+#btnMakeSmallerWidth {
+    position: absolute;
+    top: -12%;
+}
+
+#btnMakeBiggerWidth {
+    position: absolute;
+    top: -12%;
+    left: 30%;
+}
+
+#btnMakeSmallerHeight {
+    position: absolute;
+    top: 0%;
+    left: 95%;
+}
+
+#btnMakeBiggerHeight {
+    position: absolute;
+    top: 10%;
+    left: 95%;
 }

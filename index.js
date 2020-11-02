@@ -90,6 +90,14 @@ $(function() {
         gameWindowHeight = gameWindowHeightParsed  + 3;
         $('#divGameWindow').css({height: gameWindowHeight+'px'});
     });
+
+    $('#btnMobile').on("click", () => {
+        startTestMobile();
+    });
+
+    $('#btnPC').on("click", () => {
+        startTestPc();
+    });
 });
 
 //Moves game object to a postion based on which test the user is currently on
@@ -119,11 +127,16 @@ function makeTable() {
     $('#tableTestResults').html(tableHTML);
 }
 
-function startTest() {
+function startTestMobile() {
     let gameWindowWidth = $('#divGameWindow').css("width").split("px")[0];
     let gameWindowHeight = $('#divGameWindow').css("height").split("px")[0];
-    window.location = 'test.html?width=' + gameWindowWidth + '&height=' + gameWindowHeight;
+    window.location = 'testMobile.html?width=' + gameWindowWidth + '&height=' + gameWindowHeight;
+}
 
+function startTestPc() {
+    let gameWindowWidth = $('#divGameWindow').css("width").split("px")[0];
+    let gameWindowHeight = $('#divGameWindow').css("height").split("px")[0];
+    window.location = 'testPc.html?width=' + gameWindowWidth + '&height=' + gameWindowHeight;
 }
 
 
