@@ -1,32 +1,18 @@
-const gameObjectPositionsPercent = [
-    {left: 25, top: 89},
-    {left: 33, top: 10},
-    {left: 44, top: 73},
-    {left: 54, top: 36},
-    {left: 62, top: 11},
-    {left: 1, top: 17},
-    {left: 81, top: 73},
-    {left: 83, top: 0},
-    {left: 75, top: 15},
-    {left: 55, top: 83}
-];
-
-const gameObjectSizes = [
-    {height: 6, width: 10},
-    {height: 6, width: 10},
-    {height: 6, width: 10},
-    {height: 12, width: 20},
-    {height: 12, width: 20},
-    {height: 15, width: 23},
-    {height: 15, width: 23},
-    {height: 9, width: 18},
-    {height: 9, width: 18},
-    {height: 9, width: 18}
-];
+const tests = [
+    {height: 20, width: 34, left: 45, top: 5, testNumber: 7},
+    {height: 20, width: 34, left: 60, top: 10, testNumber: 10},
+    {height: 6, width: 10, left: 25, top: 89, testNumber: 1},
+    {height: 20, width: 34, left: 25, top: 30, testNumber: 2},
+    {height: 6, width: 10, left: 40, top: 90, testNumber: 9},
+    {height: 6, width: 10, left: 6, top: 10, testNumber: 4},
+    {height: 16, width: 24, left: 52, top: 36, testNumber: 5},
+    {height: 8, width: 12, left: 84, top: 50, testNumber: 8},
+    {height: 10, width: 14, left: 82, top: 88, testNumber: 3},
+    {height: 8, width: 12, left: 8, top: 70, testNumber: 6},
+]
 
 let testCounter = 0; // which test number the user is currently on
 const numberOfTests = 10; // how many tests will be generated
-const waitMilliseconds = 3000; // how many milleseconds before showing game object in tests
 let startTime; // current system time before clicking box
 
 
@@ -44,13 +30,13 @@ $(function() {
         setTimeout(() => {
             startTime = Date.now();
             $('#divGameObject').show();
-        }, waitMilliseconds);
+        }, genRandNum(1000,4000));
     });
 
     //Press next button: updates test counter
     $('#btnNext').on("click", function() {
         testCounter++;
-        $('#pTestCounter').text("Test " + (testCounter + 1) + " / " + gameObjectPositionsPercent.length);
+        $('#pTestCounter').text("Test " + (testCounter + 1) + " / " + tests.length);
         hideShowButtons();
         $('#divGameObject').hide();
     });
@@ -58,7 +44,7 @@ $(function() {
     //Press previous button: updates test counter
     $('#btnPrevious').on("click", function() {
         testCounter--;
-        $('#pTestCounter').text("Test " + (testCounter + 1) + " / " + gameObjectPositionsPercent.length);
+        $('#pTestCounter').text("Test " + (testCounter + 1) + " / " + tests.length);
         hideShowButtons();
         $('#divGameObject').hide();
     });
@@ -67,10 +53,11 @@ $(function() {
     $('#divGameObject').on("click", () => {
         $('#divGameObject').hide();
         let totalTime = Date.now() - startTime;
+        $(`#rowTest${testCounter}`).html(tests[testCounter].testNumber);
         $(`#rowResult${testCounter}`).html(totalTime);
-        if (testCounter < gameObjectPositionsPercent.length-1) {
+        if (testCounter < tests.length-1) {
             testCounter++;
-            $('#pTestCounter').text("Test " + (testCounter + 1) + " / " + gameObjectPositionsPercent.length);
+            $('#pTestCounter').text("Test " + (testCounter + 1) + " / " + tests.length);
         }
         hideShowButtons();
     });
@@ -78,14 +65,14 @@ $(function() {
 
 //Moves game object to a postion based on which test the user is currently on
 function moveGameObject() {
-    $('#divGameObject').css({height: gameObjectSizes[testCounter].height + '%', width: gameObjectSizes[testCounter].width +'%'});
-    $("#divGameObject").animate({left: gameObjectPositionsPercent[testCounter].left + '%', 
-    top: gameObjectPositionsPercent[testCounter].top + '%'});
+    $('#divGameObject').css({height: tests[testCounter].height + '%', width: tests[testCounter].width +'%'});
+    $("#divGameObject").animate({left: tests[testCounter].left + '%', 
+    top: tests[testCounter].top + '%'});
 }
 
 // hides next button when user is at last test and hides previous button when user is at first test
 function hideShowButtons() {
-    if (testCounter == gameObjectPositionsPercent.length-1) $('#btnNext').hide();
+    if (testCounter == tests.length-1) $('#btnNext').hide();
     else $('#btnNext').show();
     
     if (testCounter == 0) $('#btnPrevious').hide();
@@ -97,7 +84,7 @@ function makeTable() {
     let tableHTML = '<tr><th>Test</th><th>Result (milliseconds)</th></tr>';
 
     for (i=0; i<numberOfTests;i++) {
-        tableHTML += `<tr><td id='rowTest${i}'>${i+1}</td><td id='rowResult${i}'></td></tr>`;
+        tableHTML += `<tr><td id='rowTest${i}'></td><td id='rowResult${i}'></td></tr>`;
     }
 
     $('#tableTestResults').html(tableHTML);
@@ -117,7 +104,7 @@ function setGameWindowSize() {
 function populateArray() {
     for (i=0;i<10;i++) {
         let position = {left: genRandNum(0,90), top: genRandNum(0,94)};
-        gameObjectPositionsPercent.push(position);
+        tests.push(position);
     }
 }
 

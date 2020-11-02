@@ -7,15 +7,14 @@
  * maximum height: gameWindow.height (500) - gameObject.height (40) = 360
  */
 
-const gameObjectPositionsPercent = [
-    {left: 30, top: 10},
-    {left: 80, top: 70},
-    {left: 60, top: 50},
-];
+const tests = [
+    {height: 6, width: 10, left: 25, top: 10, testNumber: 1},
+    {height: 20, width: 34, left: 60, top: 40, testNumber: 2},
+    {height: 10, width: 14, left: 5, top: 88, testNumber: 3},
+]
 
 let testCounter = 0; // which test number the user is currently on
 const numberOfTests = 3; // how many tests will be generated
-const waitMilliseconds = 3000; // how many milleseconds before showing game object in tests
 let startTime; // current system time before clicking box
 
 $(function() {
@@ -30,13 +29,13 @@ $(function() {
         setTimeout(() => {
             startTime = Date.now();
             $('#divGameObject').show();
-        }, waitMilliseconds);
+        }, genRandNum(1000,4000));
     });
 
     //Press next button: updates test counter
     $('#btnNext').on("click", function() {
         testCounter++;
-        $('#pTestCounter').text("Test " + (testCounter + 1) + " / " + gameObjectPositions.length);
+        $('#pTestCounter').text("Test " + (testCounter + 1) + " / " + tests.length);
         hideShowButtons();
         $('#divGameObject').hide();
     });
@@ -44,7 +43,7 @@ $(function() {
     //Press previous button: updates test counter
     $('#btnPrevious').on("click", function() {
         testCounter--;
-        $('#pTestCounter').text("Test " + (testCounter + 1) + " / " + gameObjectPositions.length);
+        $('#pTestCounter').text("Test " + (testCounter + 1) + " / " + tests.length);
         hideShowButtons();
         $('#divGameObject').hide();
     });
@@ -54,9 +53,9 @@ $(function() {
         $('#divGameObject').hide();
         let totalTime = Date.now() - startTime;
         $(`#rowResult${testCounter}`).html(totalTime);
-        if (testCounter < gameObjectPositionsPercent.length-1) {
+        if (testCounter < tests.length-1) {
             testCounter++;
-            $('#pTestCounter').text("Test " + (testCounter + 1) + " / " + gameObjectPositionsPercent.length);
+            $('#pTestCounter').text("Test " + (testCounter + 1) + " / " + tests.length);
         }
         hideShowButtons();
     });
@@ -102,8 +101,9 @@ $(function() {
 
 //Moves game object to a postion based on which test the user is currently on
 function moveGameObject() {
-    $("#divGameObject").animate({left: gameObjectPositionsPercent[testCounter].left + '%',
-        top: gameObjectPositionsPercent[testCounter].top + '%'});
+    $('#divGameObject').css({height: tests[testCounter].height + '%', width: tests[testCounter].width +'%'});
+    $("#divGameObject").animate({left: tests[testCounter].left + '%',
+        top: tests[testCounter].top + '%'});
 }
 
 
@@ -139,4 +139,8 @@ function startTestPc() {
     window.location = 'testPc.html?width=' + gameWindowWidth + '&height=' + gameWindowHeight;
 }
 
+//Generate a random number between lower bound and upper bound (including lower and upper bound)
+function genRandNum(lowerBound, upperBound) {
+    return Math.floor(Math.random() * (upperBound - lowerBound + 1)) + lowerBound;
+}
 
