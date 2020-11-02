@@ -12,7 +12,6 @@ const tests = [
 ]
 
 let testCounter = 0; // which test number the user is currently on
-const numberOfTests = 10; // how many tests will be generated
 let startTime; // current system time before clicking box
 
 
@@ -22,7 +21,6 @@ $(function() {
     $('#btnPrevious').hide(); // hide previous button
     makeTable();
     setGameWindowSize();
-    //populateArray()
 
     //Press start button: show game object and move it
     $('#divStart').on("click", function() {
@@ -95,7 +93,7 @@ function hideShowButtons() {
 function makeTable() {
     let tableHTML = '<tr><th>Test</th><th>Result (milliseconds)</th></tr>';
 
-    for (i=0; i<numberOfTests;i++) {
+    for (i=0; i<tests.length;i++) {
         tableHTML += `<tr><td id='rowTest${i}'></td><td id='rowResult${i}'></td></tr>`;
     }
 
@@ -111,13 +109,6 @@ function setGameWindowSize() {
     let gameWindowHeight = urlVariables[1].split("=")[1] + 'px';
 
     $('#divGameWindow').css({width: gameWindowWidth, height: gameWindowHeight});
-}
-
-function populateArray() {
-    for (i=0;i<10;i++) {
-        let position = {left: genRandNum(0,90), top: genRandNum(0,94)};
-        tests.push(position);
-    }
 }
 
 //Generate a random number between lower bound and upper bound (including lower and upper bound)

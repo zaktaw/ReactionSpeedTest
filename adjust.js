@@ -14,7 +14,6 @@ const tests = [
 ]
 
 let testCounter = 0; // which test number the user is currently on
-const numberOfTests = 3; // how many tests will be generated
 let startTime; // current system time before clicking box
 
 $(function() {
@@ -25,6 +24,9 @@ $(function() {
 
     //Press start button: show game object and move it
     $('#divStart').on("click", function() {
+        $("#divStart").css({'background-color': 'red'});
+        $("#divStart").html('');
+
         moveGameObject();
         setTimeout(() => {
             startTime = Date.now();
@@ -34,6 +36,9 @@ $(function() {
 
     //Press next button: updates test counter
     $('#btnNext').on("click", function() {
+        $("#divStart").css({'background-color': 'green'});
+        $("#divStart").html('START');
+
         testCounter++;
         $('#pTestCounter').text("Test " + (testCounter + 1) + " / " + tests.length);
         hideShowButtons();
@@ -42,6 +47,9 @@ $(function() {
 
     //Press previous button: updates test counter
     $('#btnPrevious').on("click", function() {
+        $("#divStart").css({'background-color': 'green'});
+        $("#divStart").html('START');
+
         testCounter--;
         $('#pTestCounter').text("Test " + (testCounter + 1) + " / " + tests.length);
         hideShowButtons();
@@ -50,6 +58,9 @@ $(function() {
 
     //Press game object
     $('#divGameObject').on("click", () => {
+        $("#divStart").css({'background-color': 'green'});
+        $("#divStart").html('START');
+
         $('#divGameObject').hide();
         let totalTime = Date.now() - startTime;
         $(`#rowResult${testCounter}`).html(totalTime);
@@ -109,7 +120,7 @@ function moveGameObject() {
 
 // hides next button when user is at last test and hides previous button when user is at first test
 function hideShowButtons() {
-    if (testCounter == gameObjectPositionsPercent.length-1) $('#btnNext').hide();
+    if (testCounter == tests.length-1) $('#btnNext').hide();
     else $('#btnNext').show();
 
     if (testCounter == 0) $('#btnPrevious').hide();
@@ -120,7 +131,7 @@ function hideShowButtons() {
 function makeTable() {
     let tableHTML = '<tr><th>Test</th><th>Result (milliseconds)</th></tr>';
 
-    for (i=0; i<numberOfTests;i++) {
+    for (i=0; i<tests.length;i++) {
         tableHTML += `<tr><td id='rowTest${i}'>${i+1}</td><td id='rowResult${i}'></td></tr>`;
     }
 

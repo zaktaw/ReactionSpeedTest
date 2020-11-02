@@ -22,10 +22,11 @@ $(function() {
     $('#btnPrevious').hide(); // hide previous button
     makeTable();
     setGameWindowSize();
-    //populateArray()
 
     //Press start button: show game object and move it
     $('#divStart').on("click", function() {
+        $("#divStart").css({'background-color': 'red'});
+        $("#divStart").html('');
         moveGameObject();
         setTimeout(() => {
             startTime = Date.now();
@@ -35,6 +36,9 @@ $(function() {
 
     //Press next button: updates test counter
     $('#btnNext').on("click", function() {
+        $("#divStart").css({'background-color': 'green'});
+        $("#divStart").html('START');
+
         testCounter++;
         $('#pTestCounter').text("Test " + (testCounter + 1) + " / " + tests.length);
         hideShowButtons();
@@ -43,6 +47,9 @@ $(function() {
 
     //Press previous button: updates test counter
     $('#btnPrevious').on("click", function() {
+        $("#divStart").css({'background-color': 'green'});
+        $("#divStart").html('START');
+
         testCounter--;
         $('#pTestCounter').text("Test " + (testCounter + 1) + " / " + tests.length);
         hideShowButtons();
@@ -52,6 +59,10 @@ $(function() {
     //Press game object
     $('#divGameObject').on("click", () => {
         $('#divGameObject').hide();
+
+        $("#divStart").css({'background-color': 'green'});
+        $("#divStart").html('START');
+
         let totalTime = Date.now() - startTime;
         $(`#rowTest${testCounter}`).html(tests[testCounter].testNumber);
         $(`#rowResult${testCounter}`).html(totalTime);
@@ -99,13 +110,6 @@ function setGameWindowSize() {
     let gameWindowHeight = urlVariables[1].split("=")[1] + 'px';
 
     $('#divGameWindow').css({width: gameWindowWidth, height: gameWindowHeight});
-}
-
-function populateArray() {
-    for (i=0;i<10;i++) {
-        let position = {left: genRandNum(0,90), top: genRandNum(0,94)};
-        tests.push(position);
-    }
 }
 
 //Generate a random number between lower bound and upper bound (including lower and upper bound)
